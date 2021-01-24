@@ -8,9 +8,6 @@ def get_cctv(id):
     session_requests.get(PlayVideo_url, headers = dict(Cookie = cookie))
     PlayVideo_url = "http://www.bmatraffic.com/show.aspx?image="+str(id)
     result1 = session_requests.get(PlayVideo_url, headers = dict(Cookie = cookie))
-    file = open("res.jpg", 'wb')
-    file.write(result1.content)
-    file.close()
     return result1.content
 
 if __name__ == '__main__':
