@@ -1,13 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import GoogleMapReact from "google-map-react";
 import { Row, Col } from "antd";
 import styles from "./index.module.scss";
+import TrafficLight from "react-trafficlight";
 import { externalEndpoint } from "../const";
 
 const Home = () => {
+  const [key, setKey] = useState(0)
+
   useEffect(() => {
     console.log("bitch!");
-  });
+    const interval = setInterval(() => {
+      console.log("update!")
+      setKey(Date.now())
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
   return (
     <div className={styles.container}>
       <Row justify="center" className={styles.map}>
@@ -28,7 +36,11 @@ const Home = () => {
         </GoogleMapReact>
       </Row>
       <Row justify="center">
-        <img src={`${externalEndpoint}image/20`} alt="bitch" />
+        <img src={`${externalEndpoint}image/20?${key}`} alt="bitch" />
+        <img src={`${externalEndpoint}image/1219?${key}`} alt="bitch2" />
+      </Row>
+      <Row justify="center">
+        <TrafficLight RedOn={true} />
       </Row>
     </div>
   );
