@@ -1,18 +1,36 @@
 import React, { useEffect, useState } from "react";
 import GoogleMapReact from "google-map-react";
-import { Row, Col } from "antd";
+import { Row, Col, Button } from "antd";
 import styles from "./index.module.scss";
 import TrafficLight from "react-trafficlight";
 import { externalEndpoint } from "../const";
+import { TrafficPhase } from "../Component";
 
 const Home = () => {
-  const [key, setKey] = useState(0)
+  const [key, setKey] = useState(0);
+  const [light, setLight] = useState({
+    north: false,
+    northTurn: false,
+    east: false,
+    eastTurn: false,
+    south: false,
+    southTurn: false,
+    west: false,
+    westTurn: false
+  })
+
+  const handleLight = (pos: keyof typeof light) => () => {
+    setLight({
+      ...light,
+      [pos]: !light[pos]
+    })
+  }
 
   useEffect(() => {
     console.log("bitch!");
     const interval = setInterval(() => {
-      console.log("update!")
-      setKey(Date.now())
+      console.log("update!");
+      setKey(Date.now());
     }, 10000);
     return () => clearInterval(interval);
   }, []);
@@ -22,8 +40,8 @@ const Home = () => {
         <GoogleMapReact
           bootstrapURLKeys={{ key: "" }}
           defaultCenter={{
-            lat: 59.95,
-            lng: 30.33,
+            lat: 13.732931,
+            lng: 100.528818,
           }}
           defaultZoom={11}
           layerTypes={["TrafficLayer"]}
@@ -35,9 +53,18 @@ const Home = () => {
       /> */}
         </GoogleMapReact>
       </Row>
+      <Button onClick={handleLight("north")}>ToggleNorth</Button>
+      <Button onClick={handleLight("northTurn")}>ToggleNorthTurn</Button>
+      <Button onClick={handleLight("east")}>ToggleEast</Button>
+      <Button onClick={handleLight("eastTurn")}>ToggleEastTurn</Button>
+      <Button onClick={handleLight("south")}>ToggleSouth</Button>
+      <Button onClick={handleLight("southTurn")}>ToggleSouthTurn</Button>
+      <Button onClick={handleLight("west")}>ToggleWest</Button>
+      <Button onClick={handleLight("westTurn")}>ToggleWestTurn</Button>
       <Row justify="center">
-        <img src={`${externalEndpoint}image/20?${key}`} alt="bitch" />
-        <img src={`${externalEndpoint}image/1219?${key}`} alt="bitch2" />
+        <TrafficPhase light={light} />
+        {/* <img src={`${externalEndpoint}image/20?${key}`} alt="bitch" />
+        <img src={`${externalEndpoint}image/1219?${key}`} alt="bitch2" /> */}
       </Row>
       <Row justify="center">
         <TrafficLight RedOn={true} />

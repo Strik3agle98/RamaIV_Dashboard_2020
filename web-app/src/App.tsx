@@ -4,6 +4,7 @@ import styles from "./index.module.scss";
 import Home from "./Home";
 import NavBar from "./NavBar";
 import './App.less'
+import './main.scss'
 
 function App() {
   return (

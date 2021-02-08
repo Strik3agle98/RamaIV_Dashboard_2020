@@ -16,7 +16,11 @@ const NavBar = () => {
         </Col>
         <Col span={12} />
         <Col span={8}>
-          <Menu mode="horizontal">
+          <Menu
+            style={{ backgroundColor: "#323436" }}
+            mode="horizontal"
+            theme="dark"
+          >
             <Menu.Item>
               <Link to="/">Home</Link>
             </Menu.Item>
