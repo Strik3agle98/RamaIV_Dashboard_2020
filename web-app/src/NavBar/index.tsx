@@ -12,7 +12,7 @@ const NavBar = () => {
         align="middle"
       >
         <Col className={styles.logoContainer} span={4}>
-          <img alt="logo" className={styles.logo} src="/asset/logo.svg" />
+          <img alt="logo" className={styles.logo} src="/asset/logo_dark.svg" />
         </Col>
         <Col span={12} />
         <Col span={8}>

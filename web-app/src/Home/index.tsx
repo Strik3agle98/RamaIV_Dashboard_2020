@@ -6,6 +6,15 @@ import TrafficLight from "react-trafficlight";
 import { externalEndpoint } from "../const";
 import { TrafficPhase } from "../Component";
 
+interface junctionProp {
+  lat: number;
+  lng: number;
+}
+
+const Junction = ({ lat, lng }: junctionProp) => {
+  return <div className={styles.mapPin}>Z</div>;
+};
+
 const Home = () => {
   const [key, setKey] = useState(0);
   const [light, setLight] = useState({
@@ -16,15 +25,15 @@ const Home = () => {
     south: false,
     southTurn: false,
     west: false,
-    westTurn: false
-  })
+    westTurn: false,
+  });
 
   const handleLight = (pos: keyof typeof light) => () => {
     setLight({
       ...light,
-      [pos]: !light[pos]
-    })
-  }
+      [pos]: !light[pos],
+    });
+  };
 
   useEffect(() => {
     console.log("bitch!");
@@ -43,9 +52,11 @@ const Home = () => {
             lat: 13.732931,
             lng: 100.528818,
           }}
-          defaultZoom={11}
+          defaultZoom={15}
           layerTypes={["TrafficLayer"]}
         >
+          <Junction lat={13.732931} lng={100.528818} />
+          <Junction lat={13.732931} lng={100.538918} />
           {/* <AnyReactComponent
         lat={59.955413}
         lng={30.337844}
@@ -62,7 +73,7 @@ const Home = () => {
       <Button onClick={handleLight("west")}>ToggleWest</Button>
       <Button onClick={handleLight("westTurn")}>ToggleWestTurn</Button>
       <Row justify="center">
-        <TrafficPhase light={light} />
+        {/* <TrafficPhase light={light} /> */}
         {/* <img src={`${externalEndpoint}image/20?${key}`} alt="bitch" />
         <img src={`${externalEndpoint}image/1219?${key}`} alt="bitch2" /> */}
       </Row>

@@ -8,3 +8,16 @@
   height: 80vh;
   width: 80vw;
 }
+
+.mapPin {
+  width: 40px;
+  height: 40px;
+  left: -20px;
+  top: -20px;
+  border: 5px solid #A40000;
+  text-align: center;
+  border-radius: 40px;
+  background-color: white;
+  font-size: 16;
+  font-weight: bold;
+}
