@@ -29,13 +29,39 @@ interface junctionProp {
   lat: number;
   lng: number;
   id: number;
+  name: string;
 }
 
-const Junction = ({ lat, lng, id }: junctionProp) => {
+const Junction = ({ lat, lng, id, name }: junctionProp) => {
+  const [popup, setPopup] = useState(false);
+
   return (
     <Link to={`/dashboard/${id}`}>
-      <Row justify="center" align="middle" className={styles.mapPin}>
+      <Row
+        onMouseEnter={() => {
+          setPopup(true);
+        }}
+        onMouseLeave={() => {
+          setPopup(false);
+        }}
+        justify="center"
+        align="middle"
+        className={styles.mapPin}
+      >
         <CameraFilled style={{ fontSize: "15px", color: "#1c1e21" }} />
+        <Row
+          style={{
+            display: `${popup ? "block" : "none"}`,
+            position: "absolute",
+            top: "-20px",
+            width: "100px",
+            textAlign: "center",
+            fontSize: "14px",
+            backgroundColor: "white"
+          }}
+        >
+          {name}
+        </Row>
       </Row>
     </Link>
   );
@@ -82,7 +108,12 @@ const Home = () => {
           layerTypes={["TrafficLayer"]}
         >
           {junctions.map((junction) => (
-            <Junction lat={junction.lat} lng={junction.lng} id={junction.id} />
+            <Junction
+              lat={junction.lat}
+              lng={junction.lng}
+              id={junction.id}
+              name={junction.name}
+            />
           ))}
           {/* <Junction lat={13.740433} lng={100.512273} id={0} />
           <Junction lat={13.737997} lng={100.515961} id={1} /> */}

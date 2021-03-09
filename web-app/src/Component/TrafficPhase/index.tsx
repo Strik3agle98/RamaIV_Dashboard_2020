@@ -17,54 +17,102 @@ const TrafficPhase = (light: lightProp) => {
   return (
     <div
       style={{
-        backgroundImage: "url(/asset/trafficPhase.svg)",
+        backgroundImage: "url(/asset/traffic-phase.svg)",
         width: "900px",
         height: "900px",
       }}
     >
       <img
         style={{
-          width: "300px",
+          width: "225px",
           position: "absolute",
-          marginTop: "500px",
-          marginLeft: "600px",
+          marginTop: "575px",
+          marginLeft: "675px",
+        }}
+        src={`/asset/arrow-left-${light.east ? "green" : "red"}.svg`}
+      />
+      <img
+        style={{
+          width: "225px",
+          position: "absolute",
+          marginTop: "510px",
+          marginLeft: "675px",
         }}
         src={`/asset/arrow-${light.east ? "green" : "red"}.svg`}
       />
       <img
         style={{
-          width: "300px",
+          width: "225px",
           position: "absolute",
-          marginTop: "300px",
-          marginLeft: "600px",
+          marginTop: "375px",
+          marginLeft: "675px",
         }}
         src={`/asset/arrow-turn-${light.eastTurn ? "green" : "red"}.svg`}
       />
       <img
         style={{
-          width: "300px",
+          width: "225px",
           position: "absolute",
-          marginTop: "720px",
-          marginLeft: "200px",
+          marginTop: "275px",
+          marginLeft: "675px",
+        }}
+        src={`/asset/arrow-u-${light.east ? "green" : "red"}.svg`}
+      />
+      <img
+        style={{
+          width: "225px",
+          position: "absolute",
+          marginTop: "735px",
+          marginLeft: "150px",
+          transform: "rotate(90deg)",
+        }}
+        src={`/asset/arrow-left-${light.south ? "green" : "red"}.svg`}
+      />
+      <img
+        style={{
+          width: "225px",
+          position: "absolute",
+          marginTop: "765px",
+          marginLeft: "240px",
           transform: "rotate(90deg)",
         }}
         src={`/asset/arrow-${light.south ? "green" : "red"}.svg`}
       />
       <img
         style={{
-          width: "300px",
+          width: "225px",
           position: "absolute",
-          marginTop: "680px",
-          marginLeft: "400px",
+          marginTop: "735px",
+          marginLeft: "375px",
           transform: "rotate(90deg)",
         }}
         src={`/asset/arrow-turn-${light.southTurn ? "green" : "red"}.svg`}
       />
       <img
         style={{
-          width: "300px",
+          width: "225px",
           position: "absolute",
-          marginTop: "300px",
+          marginTop: "745px",
+          marginLeft: "475px",
+          transform: "rotate(90deg)",
+        }}
+        src={`/asset/arrow-u-${light.southTurn ? "green" : "red"}.svg`}
+      />
+      <img
+        style={{
+          width: "225px",
+          position: "absolute",
+          marginTop: "210px",
+          marginLeft: "0",
+          transform: "rotate(180deg)",
+        }}
+        src={`/asset/arrow-left-${light.west ? "green" : "red"}.svg`}
+      />
+      <img
+        style={{
+          width: "225px",
+          position: "absolute",
+          marginTop: "335px",
           marginLeft: "0",
           transform: "rotate(180deg)",
         }}
@@ -72,9 +120,9 @@ const TrafficPhase = (light: lightProp) => {
       />
       <img
         style={{
-          width: "300px",
+          width: "225px",
           position: "absolute",
-          marginTop: "500px",
+          marginTop: "400px",
           marginLeft: "0",
           transform: "rotate(180deg)",
         }}
@@ -82,23 +130,53 @@ const TrafficPhase = (light: lightProp) => {
       />
       <img
         style={{
-          width: "300px",
+          width: "225px",
           position: "absolute",
-          marginTop: "120px",
-          marginLeft: "400px",
+          marginTop: "525px",
+          marginLeft: "0",
+          transform: "rotate(180deg)",
+        }}
+        src={`/asset/arrow-u-${light.westTurn ? "green" : "red"}.svg`}
+      />
+      <img
+        style={{
+          width: "225px",
+          position: "absolute",
+          marginTop: "65px",
+          marginLeft: "535px",
+          transform: "rotate(-90deg)",
+        }}
+        src={`/asset/arrow-left-${light.north ? "green" : "red"}.svg`}
+      />
+      <img
+        style={{
+          width: "225px",
+          position: "absolute",
+          marginTop: "95px",
+          marginLeft: "425px",
           transform: "rotate(-90deg)",
         }}
         src={`/asset/arrow-${light.north ? "green" : "red"}.svg`}
       />
       <img
         style={{
-          width: "300px",
+          width: "225px",
           position: "absolute",
-          marginTop: "80px",
-          marginLeft: "200px",
+          marginTop: "65px",
+          marginLeft: "325px",
           transform: "rotate(-90deg)",
         }}
         src={`/asset/arrow-turn-${light.northTurn ? "green" : "red"}.svg`}
+      />
+      <img
+        style={{
+          width: "225px",
+          position: "absolute",
+          marginTop: "75px",
+          marginLeft: "200px",
+          transform: "rotate(-90deg)",
+        }}
+        src={`/asset/arrow-u-${light.northTurn ? "green" : "red"}.svg`}
       />
     </div>
   );
