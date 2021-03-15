@@ -4,6 +4,8 @@ import { Row } from "antd";
 import styles from "./index.module.scss";
 import { TrafficPhase } from "../Component";
 import type { lightProp } from "../Component";
+import { externalEndpoint } from "../const";
+import { getJunctionAPI } from "../api/dashboard";
 
 interface ParamTypes {
   id: string;
@@ -11,10 +13,18 @@ interface ParamTypes {
 
 const Dashboard = () => {
   const { id } = useParams<ParamTypes>();
+  const [key, setKey] = useState(0);
+  const [data, setData] = useState({
+    id: undefined,
+    name: "",
+    lat: undefined,
+    lng: undefined,
+    camera: [],
+  });
 
   const [light, setLight] = useState<lightProp>({
     north: false,
-    northTurn: false,
+    northTurn: true,
     east: false,
     eastTurn: false,
     south: false,
@@ -23,13 +33,32 @@ const Dashboard = () => {
     westTurn: false,
   });
 
+  useEffect(() => {
+    console.log("bitch!");
+    getJunctionAPI(externalEndpoint)(id).then((response) => {
+      setData(response.data);
+      console.log(response.data)
+    });
+    const interval = setInterval(() => {
+      console.log("update!");
+      setKey(Date.now());
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className={styles.container}>
       <Row className={styles.row} justify="center">
-        {id}
+        {data.name}
       </Row>
       <Row className={styles.row} justify="center">
         <TrafficPhase {...light} />
+      </Row>
+      <Row justify="center">
+        {data.camera.map(cameraId => (<img
+          src={`${externalEndpoint}api/image/${cameraId}?${key}`}
+          alt="id-20-intersection"
+        />))}
       </Row>
     </div>
   );

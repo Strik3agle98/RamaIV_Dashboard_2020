@@ -5,10 +5,9 @@ import styles from "./index.module.scss";
 import TrafficLight from "react-trafficlight";
 import { CameraFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import {externalEndpoint} from "../const"
 
 const junctions = [
-  { id: 0, name: "หมอมี", lat: 13.740433, lng: 100.512273 },
-  { id: 1, name: "ไมตรีจิตต์", lat: 13.738215, lng: 100.515235 },
   { id: 2, name: "หัวลำโพง", lat: 13.737908, lng: 100.516311 },
   { id: 3, name: "มหานคร", lat: 13.736726, lng: 100.519133 },
   { id: 4, name: "สะพานเหลือง", lat: 13.735735, lng: 100.52161 },
@@ -16,13 +15,15 @@ const junctions = [
   { id: 6, name: "อังรีดูนังต์", lat: 13.730785, lng: 100.533573 },
   { id: 7, name: "ศาลาแดง", lat: 13.729602, lng: 100.53659 },
   { id: 8, name: "วิทยุ", lat: 13.726334, lng: 100.544419 },
-  { id: 9, name: "เฉลิมมหานคร", lat: 13.722911, lng: 100.552615 },
+  { id: 9, name: "ใต้ด่วนพระราม 4", lat: 13.722911, lng: 100.552615 },
   { id: 10, name: "คลองเตย", lat: 13.721106, lng: 100.557593 },
   { id: 11, name: "พระรามที่ 4", lat: 13.720242, lng: 100.559085 },
   { id: 12, name: "เกษมราษฎร์", lat: 13.718941, lng: 100.567157 },
-  { id: 13, name: "บ้านกล้วย", lat: 13.71325, lng: 100.580598 },
   { id: 14, name: "กล้วยน้ำไท", lat: 13.712945, lng: 100.584065 },
   { id: 15, name: "พระโขนง", lat: 13.714308, lng: 100.592523 },
+  { id: 16, name: "ณ ระนอง", lat: 13.717685, lng: 100.558180 },
+  { id: 17, name: "กรมศุลกากร", lat: 13.714643, lng: 100.565236 },
+  { id: 18, name: "อ่อนนุช", lat: 13.708889, lng: 100.599426 },
 ];
 
 interface junctionProp {
@@ -133,12 +134,7 @@ const Home = () => {
       <Button onClick={handleLight("west")}>ToggleWest</Button>
       <Button onClick={handleLight("westTurn")}>ToggleWestTurn</Button>
       <Row justify="center">
-        {/* <TrafficPhase light={light} /> */}
-        {/* <img src={`${externalEndpoint}image/20?${key}`} alt="bitch" />
-        <img src={`${externalEndpoint}image/1219?${key}`} alt="bitch2" /> */}
-      </Row>
-      <Row justify="center">
-        <TrafficLight RedOn={true} />
+        {/* <TrafficLight RedOn={true} /> */}
       </Row>
     </div>
   );
