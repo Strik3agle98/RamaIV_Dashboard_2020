@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Row } from "antd";
+import { Row, Col } from "antd";
 import styles from "./index.module.scss";
 import { TrafficPhase } from "../Component";
 import type { lightProp } from "../Component";
@@ -31,13 +31,15 @@ const Dashboard = () => {
     southTurn: false,
     west: false,
     westTurn: false,
+    intersectionType: "normal",
+    orientation: "north",
   });
 
   useEffect(() => {
     console.log("bitch!");
     getJunctionAPI(externalEndpoint)(id).then((response) => {
       setData(response.data);
-      console.log(response.data)
+      console.log(response.data);
     });
     const interval = setInterval(() => {
       console.log("update!");
@@ -48,17 +50,44 @@ const Dashboard = () => {
 
   return (
     <div className={styles.container}>
-      <Row className={styles.row} justify="center">
-        {data.name}
+      <Row
+        className={styles.row}
+        style={{ height: "50px" }}
+        justify="center"
+        align="middle"
+      >
+        <h2>{`แยก${data.name}`}</h2>
       </Row>
-      <Row className={styles.row} justify="center">
-        <TrafficPhase {...light} />
+      <Row className={styles.row} justify="center" align="middle">
+        <p>ข้อมูลเวลาจริง</p>
       </Row>
-      <Row justify="center">
-        {data.camera.map(cameraId => (<img
-          src={`${externalEndpoint}api/image/${cameraId}?${key}`}
-          alt="id-20-intersection"
-        />))}
+
+      <Row className={styles.row} justify="space-around">
+        <Col span={12}>
+          <Row justify="center">
+            <h3>สัญญาณไปจราจร</h3>
+          </Row>
+          <Row justify="center">
+            <TrafficPhase {...light} />
+          </Row>
+        </Col>
+        {data.camera.length > 0 && (
+          <Col span={12}>
+            <Row justify="center">
+              <Row className={styles.row} justify="center">
+                <h3>กล้องวงจรปิด BMA</h3>
+              </Row>
+              <Row className={styles.row} justify="space-around">
+                {data.camera.map((cameraId) => (
+                  <img
+                    src={`${externalEndpoint}api/image/${cameraId}?${key}`}
+                    alt="id-20-intersection"
+                  />
+                ))}
+              </Row>
+            </Row>
+          </Col>
+        )}
       </Row>
     </div>
   );

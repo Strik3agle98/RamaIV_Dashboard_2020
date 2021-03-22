@@ -5,7 +5,7 @@ import styles from "./index.module.scss";
 import TrafficLight from "react-trafficlight";
 import { CameraFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import {externalEndpoint} from "../const"
+import { externalEndpoint } from "../const";
 
 const junctions = [
   { id: 2, name: "หัวลำโพง", lat: 13.737908, lng: 100.516311 },
@@ -21,7 +21,7 @@ const junctions = [
   { id: 12, name: "เกษมราษฎร์", lat: 13.718941, lng: 100.567157 },
   { id: 14, name: "กล้วยน้ำไท", lat: 13.712945, lng: 100.584065 },
   { id: 15, name: "พระโขนง", lat: 13.714308, lng: 100.592523 },
-  { id: 16, name: "ณ ระนอง", lat: 13.717685, lng: 100.558180 },
+  { id: 16, name: "ณ ระนอง", lat: 13.717685, lng: 100.55818 },
   { id: 17, name: "กรมศุลกากร", lat: 13.714643, lng: 100.565236 },
   { id: 18, name: "อ่อนนุช", lat: 13.708889, lng: 100.599426 },
 ];
@@ -58,7 +58,7 @@ const Junction = ({ lat, lng, id, name }: junctionProp) => {
             width: "100px",
             textAlign: "center",
             fontSize: "14px",
-            backgroundColor: "white"
+            backgroundColor: "white",
           }}
         >
           {name}
@@ -69,35 +69,18 @@ const Junction = ({ lat, lng, id, name }: junctionProp) => {
 };
 
 const Home = () => {
-  const [key, setKey] = useState(0);
-  const [light, setLight] = useState({
-    north: false,
-    northTurn: false,
-    east: false,
-    eastTurn: false,
-    south: false,
-    southTurn: false,
-    west: false,
-    westTurn: false,
-  });
-
-  const handleLight = (pos: keyof typeof light) => () => {
-    setLight({
-      ...light,
-      [pos]: !light[pos],
-    });
-  };
-
   useEffect(() => {
     console.log("bitch!");
     const interval = setInterval(() => {
       console.log("update!");
-      setKey(Date.now());
     }, 10000);
     return () => clearInterval(interval);
   }, []);
   return (
     <div className={styles.container}>
+      <Row style={{ height: "80px" }} justify="center" align="middle">
+        <h1>กรุณาเลือกแยกที่ต้องการ</h1>
+      </Row>
       <Row justify="center" className={styles.map}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "" }}
@@ -124,17 +107,6 @@ const Home = () => {
         text="My Marker"
       /> */}
         </GoogleMapReact>
-      </Row>
-      <Button onClick={handleLight("north")}>ToggleNorth</Button>
-      <Button onClick={handleLight("northTurn")}>ToggleNorthTurn</Button>
-      <Button onClick={handleLight("east")}>ToggleEast</Button>
-      <Button onClick={handleLight("eastTurn")}>ToggleEastTurn</Button>
-      <Button onClick={handleLight("south")}>ToggleSouth</Button>
-      <Button onClick={handleLight("southTurn")}>ToggleSouthTurn</Button>
-      <Button onClick={handleLight("west")}>ToggleWest</Button>
-      <Button onClick={handleLight("westTurn")}>ToggleWestTurn</Button>
-      <Row justify="center">
-        {/* <TrafficLight RedOn={true} /> */}
       </Row>
     </div>
   );

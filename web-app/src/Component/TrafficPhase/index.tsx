@@ -11,15 +11,28 @@ interface lightProp {
   southTurn: boolean;
   west: boolean;
   westTurn: boolean;
+  intersectionType?: string;
+  orientation?: keyof typeof orientationTranslation;
 }
 
+const orientationTranslation = {
+  north: "0",
+  east: "90",
+  south: "180",
+  west: "270",
+};
+
 const TrafficPhase = (light: lightProp) => {
+  const [type, setType] = useState(light.intersectionType || "normal");
   return (
     <div
       style={{
-        backgroundImage: "url(/asset/traffic-phase.svg)",
+        backgroundImage: `url(/asset/traffic-phase${
+          type === "normal" ? "" : "-tri"
+        }.svg)`,
         width: "900px",
         height: "900px",
+        transform: `rotate(${orientationTranslation[light.orientation || "north"]}deg)`,
       }}
     >
       <img

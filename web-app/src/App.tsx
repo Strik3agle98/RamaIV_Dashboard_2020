@@ -13,6 +13,10 @@ function App() {
       className={styles.container}
       style={{ minHeight: "100vh", width: "100vw" }}
     >
+      <link
+        href="https://fonts.googleapis.com/css?family=Bai+Jamjuree:300,400&display=fallback"
+        rel="stylesheet"
+      />
       <Router>
         <NavBar />
         <Switch>
