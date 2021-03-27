@@ -7,14 +7,103 @@ import { TrafficPhase } from "../Component";
 import type { lightProp } from "../Component";
 import { externalEndpoint } from "../const";
 import { getJunctionAPI, getIncidentAPI } from "../api/dashboard";
+import GoogleMapReact from "google-map-react";
 
 interface ParamTypes {
   id: string;
 }
 
-const Incident = ({ incidents }: any) => {};
+interface incidentType {
+  description?: string;
+  contributor?: string;
+  description_en?: string;
+  eid?: string;
+  icon?: string;
+  images?: Array<String>;
+  latitude?: String;
+  longitude?: String;
+  severity?: String;
+  showlevel?: number;
+  start?: string;
+  stop?: string;
+  title?: string;
+  title_en?: string;
+  type?: string;
+}
 
-const Section1 = () => {};
+type IncidentProps = {
+  incidents: Array<incidentType>;
+};
+
+const Incident = ({ incidents }: IncidentProps) => {
+  return (
+    <List
+      itemLayout="horizontal"
+      dataSource={incidents}
+      renderItem={(incident) => (
+        <List.Item>
+          <List.Item.Meta
+            title={<h3>{incident.title}</h3>}
+            description={<p>{incident.description}</p>}
+          />
+        </List.Item>
+      )}
+    />
+  );
+};
+
+type Section1Props = {
+  lat?: number;
+  lng?: number;
+};
+
+const Section1 = ({ lat, lng }: Section1Props) => {
+  const [key, setKey] = useState(0);
+  const [incidents, setIncidents] = useState([]);
+
+  useEffect(() => {
+    getIncidentAPI().then((response) => {
+      console.log(response.data);
+      setIncidents(response.data);
+    });
+    const interval = setInterval(() => {
+      setKey(Date.now());
+    }, 4000);
+    const intervalLong = setInterval(() => {
+      getIncidentAPI().then((response) => {
+        console.log(response.data);
+        setIncidents(response.data);
+      });
+    }, 60000);
+    return () => {
+      clearInterval(interval);
+      clearInterval(intervalLong);
+    };
+  }, []);
+
+  return (
+    <div className={styles.row}>
+      <Row justify="space-around">
+        <Col span={10}>
+          <Row justify="center" className={`${styles.map}`}>
+            <GoogleMapReact
+              bootstrapURLKeys={{ key: process.env.MAP_API || "" }}
+              defaultCenter={{
+                lat: lat || 13.732931,
+                lng: lng || 100.528818,
+              }}
+              defaultZoom={15}
+              layerTypes={["TrafficLayer"]}
+            />
+          </Row>
+          <div>
+            <Incident incidents={incidents} />
+          </div>
+        </Col>
+      </Row>
+    </div>
+  );
+};
 
 const Dashboard = () => {
   const { id } = useParams<ParamTypes>();
@@ -40,26 +129,11 @@ const Dashboard = () => {
     orientation: "north",
   });
 
-  const [incidents, setIncidents] = useState([]);
-
   useEffect(() => {
     getJunctionAPI(externalEndpoint)(id).then((response) => {
       setData(response.data);
       console.log(response.data);
     });
-    const interval = setInterval(() => {
-      setKey(Date.now());
-    }, 4000);
-    const intervalLong = setInterval(() => {
-      getIncidentAPI().then((response) => {
-        console.log(response.data);
-        setIncidents(response.data);
-      });
-    }, 60000);
-    return () => {
-      clearInterval(interval);
-      clearInterval(intervalLong);
-    };
   }, []);
 
   return (
@@ -75,8 +149,9 @@ const Dashboard = () => {
       <Row className={styles.row} justify="center" align="middle">
         <p>ข้อมูลเวลาจริง</p>
       </Row>
+      <Section1 lat={data.lat} lng={data.lng} />
 
-      <Row className={styles.row} justify="space-around">
+      {/* <Row className={styles.row} justify="space-around">
         <Col span={15}>
           <Row justify="center">
             <h3>สัญญาณไปจราจร</h3>
@@ -104,7 +179,7 @@ const Dashboard = () => {
             </Row>
           </Col>
         )}
-      </Row>
+      </Row> */}
     </div>
   );
 };
