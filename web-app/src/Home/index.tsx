@@ -83,7 +83,7 @@ const Home = () => {
       </Row>
       <Row justify="center" className={styles.map}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: "" }}
+          bootstrapURLKeys={{ key: process.env.MAP_API || "" }}
           defaultCenter={{
             lat: 13.732931,
             lng: 100.528818,
