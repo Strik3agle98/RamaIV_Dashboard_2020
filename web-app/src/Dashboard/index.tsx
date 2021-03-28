@@ -37,27 +37,32 @@ type IncidentProps = {
 
 const Incident = ({ incidents }: IncidentProps) => {
   return (
-    <List
-      itemLayout="horizontal"
-      dataSource={incidents}
-      renderItem={(incident) => (
-        <List.Item>
-          <List.Item.Meta
-            title={<h3>{incident.title}</h3>}
-            description={<p>{incident.description}</p>}
-          />
-        </List.Item>
-      )}
-    />
+    <div className={styles.listContainer}>
+      <List
+        itemLayout="horizontal"
+        dataSource={incidents.slice(0, 4)}
+        renderItem={(incident) => (
+          <List.Item>
+            <List.Item.Meta
+              title={<h3>{incident.title}</h3>}
+              description={
+                <p className={styles.listDescription}>{incident.description}</p>
+              }
+            />
+          </List.Item>
+        )}
+      />
+    </div>
   );
 };
 
 type Section1Props = {
   lat?: number;
   lng?: number;
+  camera?: Array<Number>;
 };
 
-const Section1 = ({ lat, lng }: Section1Props) => {
+const Section1 = ({ lat, lng, camera }: Section1Props) => {
   const [key, setKey] = useState(0);
   const [incidents, setIncidents] = useState([]);
 
@@ -100,6 +105,25 @@ const Section1 = ({ lat, lng }: Section1Props) => {
             <Incident incidents={incidents} />
           </div>
         </Col>
+        {camera && camera.length > 0 && (
+          <Col span={9}>
+            <Row justify="center">
+              <Row className={styles.row} justify="center">
+                <h3>กล้องวงจรปิด BMA</h3>
+              </Row>
+              <Row className={styles.row} justify="space-around">
+                {camera.map((cameraId) => (
+                  <LazyLoad>
+                    <img
+                      src={`${externalEndpoint}api/image/${cameraId}?${key}`}
+                      alt="id-20-intersection"
+                    />
+                  </LazyLoad>
+                ))}
+              </Row>
+            </Row>
+          </Col>
+        )}
       </Row>
     </div>
   );
@@ -149,7 +173,7 @@ const Dashboard = () => {
       <Row className={styles.row} justify="center" align="middle">
         <p>ข้อมูลเวลาจริง</p>
       </Row>
-      <Section1 lat={data.lat} lng={data.lng} />
+      <Section1 lat={data.lat} lng={data.lng} camera={data.camera} />
 
       {/* <Row className={styles.row} justify="space-around">
         <Col span={15}>
