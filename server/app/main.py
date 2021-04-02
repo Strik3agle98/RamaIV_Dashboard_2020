@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import cv2
-import scraper
-import junction
+from app import scraper
+from app import junction
 import io
 from starlette.responses import StreamingResponse
 import numpy as np
@@ -13,6 +12,8 @@ app = FastAPI()
 origins = [
     "http://localhost",
     "http://localhost:3000",
+    "http://web-app",
+    "http://web-app:3000"
 ]
 
 app.add_middleware(
