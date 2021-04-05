@@ -8,7 +8,6 @@ import type { lightProp } from "../Component";
 import { externalEndpoint } from "../const";
 import { getJunctionAPI, getIncidentAPI } from "../api/dashboard";
 import GoogleMapReact from "google-map-react";
-
 import { ResponsiveLine } from "@nivo/line";
 
 interface ParamTypes {
@@ -221,6 +220,7 @@ const Dashboard = () => {
       ) : (
         <Section2 />
       )}
+
 
       {/* <Row className={styles.row} justify="space-around">
         <Col span={15}>
