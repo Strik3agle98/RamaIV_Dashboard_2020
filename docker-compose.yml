@@ -1,0 +1,17 @@
+version: "3"
+services:
+  web-app:
+    build: ./web-app
+    ports:
+      - "3000:3000"
+    networks:
+      - rama4
+  server:
+    build: ./server
+    ports:
+      - "8000:8000"
+    networks:
+      - rama4
+networks: 
+  rama4:
+    driver: bridge
