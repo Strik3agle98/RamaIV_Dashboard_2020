@@ -25,11 +25,11 @@ app.add_middleware(
 )
 
 
-@app.get("/api/image/{id}")
+@app.get("/image/{id}")
 async def get_image(id: int):
     image = scraper.get_cctv(id)
     return StreamingResponse(io.BytesIO(image), media_type="image/png")
 
-@app.get("/api/junction/{id}")
+@app.get("/junction/{id}")
 async def get_junction(id: int):
     return junction.get_junction(id)

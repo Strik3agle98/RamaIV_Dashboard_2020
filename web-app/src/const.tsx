@@ -1,1 +1,1 @@
-export const externalEndpoint = "http://localhost:8000/";
+export const externalEndpoint =  process.env.ENDPOINT || "http://localhost:8000/";

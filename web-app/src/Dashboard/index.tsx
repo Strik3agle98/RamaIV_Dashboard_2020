@@ -117,7 +117,7 @@ const Section1 = ({ lat, lng, camera }: Section1Props) => {
                 {camera.map((cameraId) => (
                   <LazyLoad>
                     <img
-                      src={`${externalEndpoint}api/image/${cameraId}?${key}`}
+                      src={`${externalEndpoint}image/${cameraId}?${key}`}
                       alt="id-20-intersection"
                     />
                   </LazyLoad>
