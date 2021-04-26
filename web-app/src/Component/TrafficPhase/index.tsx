@@ -20,7 +20,7 @@ interface lightProp {
   westLeft?: boolean;
   westU?: boolean;
   intersectionType?: string;
-  orientation?: keyof typeof orientationTranslation;
+  orientation?: orientations;
 }
 
 export const orientationTranslation = {
@@ -29,6 +29,8 @@ export const orientationTranslation = {
   south: "180",
   west: "270",
 };
+
+export type orientations = "north" | "east" | "south" | "west" | undefined;
 
 const TrafficPhase = (light: lightProp) => {
   const [type, setType] = useState(light.intersectionType || "quad");
@@ -40,7 +42,9 @@ const TrafficPhase = (light: lightProp) => {
         }.svg)`,
         width: "900px",
         height: "900px",
-        transform: `rotate(${orientationTranslation[light.orientation || "north"]}deg)`,
+        transform: `rotate(${
+          orientationTranslation[light.orientation || "north"]
+        }deg)`,
       }}
     >
       <img

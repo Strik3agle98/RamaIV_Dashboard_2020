@@ -7,13 +7,6 @@ interface lightConfig {
   onClick: (key: keyof lightProp) => void;
 }
 
-const orientationTranslation = {
-  north: "0",
-  east: "90",
-  south: "180",
-  west: "270",
-};
-
 const PhaseConfig = ({ light, onClick }: lightConfig) => {
   return (
     <div

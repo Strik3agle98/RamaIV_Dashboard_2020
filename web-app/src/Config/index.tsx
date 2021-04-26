@@ -2,18 +2,16 @@ import React, { useEffect, useState } from "react";
 import styles from "./index.module.scss";
 import { Row, Col, Select, InputNumber } from "antd";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
-import type { lightProp } from "../Component";
-import { PhaseConfig, orientationTranslation } from "../Component";
+import type { lightProp, orientations } from "../Component";
+import { PhaseConfig } from "../Component";
 
 const { Option } = Select;
 const intersectionTemplates = ["quad", "tri", "phraKanong"];
 
-const orientations = ["north", "east", "south", "west"];
+const Orientations = ["north", "east", "south", "west"];
 
 const Config = () => {
-  const [template, setTemplate] = useState("quad");
   const [phase, setPhase] = useState(1);
-  const [orientation, setOrientation] = useState("north");
   const [light, setLight] = useState<lightProp>({
     north: false,
     northRight: true,
@@ -85,15 +83,14 @@ const Config = () => {
               style={{ width: "100%" }}
               size="large"
               value={light.orientation}
-              onChange={(value: keyof typeof orientationTranslation) => {
+              onChange={(value: orientations) => {
                 setLight({
                   ...light,
                   orientation: value,
                 });
-                setOrientation(value);
               }}
             >
-              {orientations.map((orientation) => (
+              {Orientations.map((orientation) => (
                 <Option value={orientation}>{orientation}</Option>
               ))}
             </Select>

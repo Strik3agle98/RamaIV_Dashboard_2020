@@ -1,7 +1,7 @@
-import TrafficPhase, { orientationTranslation } from "./TrafficPhase";
+import TrafficPhase from "./TrafficPhase";
 import PhaseConfig from "./PhaseConfig";
-import type { lightProp } from "./TrafficPhase";
+import type { lightProp, orientations } from "./TrafficPhase";
 import type { lightConfig } from "./PhaseConfig";
 
-export { TrafficPhase, PhaseConfig, orientationTranslation };
-export type { lightProp, lightConfig };
+export { TrafficPhase, PhaseConfig };
+export type { lightProp, lightConfig, orientations };
