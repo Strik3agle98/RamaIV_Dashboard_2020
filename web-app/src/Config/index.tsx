@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import styles from "./index.module.scss";
 import { Row, Col, Select, InputNumber } from "antd";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
-import type { lightProp, lightConfig } from "../Component";
-import { PhaseConfig } from "../Component";
+import type { lightProp } from "../Component";
+import { PhaseConfig, orientationTranslation } from "../Component";
 
 const { Option } = Select;
 const intersectionTemplates = ["quad", "tri", "phraKanong"];
@@ -34,6 +34,12 @@ const Config = () => {
     intersectionType: "quad",
     orientation: "north",
   });
+
+  const handleClick = (key: keyof typeof light) => {
+    console.log(key);
+    setLight({ ...light, [key]: !light[key] });
+  };
+
   return (
     <div className={styles.container}>
       <Row className={styles.subContainer} justify="center">
@@ -44,9 +50,12 @@ const Config = () => {
           <Select
             style={{ width: "100%" }}
             size="large"
-            value={template}
+            value={light.intersectionType}
             onChange={(value) => {
-              setTemplate(value);
+              setLight({
+                ...light,
+                intersectionType: value,
+              });
             }}
           >
             {intersectionTemplates.map((template) => (
@@ -69,14 +78,18 @@ const Config = () => {
           />
         </Col>
       </Row>
-      {template === "tri" && (
+      {light.intersectionType === "tri" && (
         <Row className={styles.subContainer} justify="center">
           <Col span={12}>
             <Select
               style={{ width: "100%" }}
               size="large"
-              value={orientation}
-              onChange={(value) => {
+              value={light.orientation}
+              onChange={(value: keyof typeof orientationTranslation) => {
+                setLight({
+                  ...light,
+                  orientation: value,
+                });
                 setOrientation(value);
               }}
             >
@@ -87,6 +100,9 @@ const Config = () => {
           </Col>
         </Row>
       )}
+      <Row className={styles.subContainer} justify="center">
+        <PhaseConfig light={light} onClick={handleClick} />
+      </Row>
     </div>
   );
 };

@@ -23,7 +23,7 @@ interface lightProp {
   orientation?: keyof typeof orientationTranslation;
 }
 
-const orientationTranslation = {
+export const orientationTranslation = {
   north: "0",
   east: "90",
   south: "180",
