@@ -1,26 +1,9 @@
-import React, { useState } from "react";
-import { transform } from "typescript";
-import styles from "./index.module.scss";
+import React, { useEffect, useState } from "react";
+import type {lightProp} from '../TrafficPhase'
 
-interface lightProp {
-  north?: boolean;
-  northRight?: boolean;
-  northLeft?: boolean;
-  northU?: boolean;
-  east?: boolean;
-  eastRight?: boolean;
-  eastLeft?: boolean;
-  eastU?: boolean;
-  south?: boolean;
-  southRight?: boolean;
-  southLeft?: boolean;
-  southU?: boolean;
-  west?: boolean;
-  westRight?: boolean;
-  westLeft?: boolean;
-  westU?: boolean;
-  intersectionType?: string;
-  orientation?: keyof typeof orientationTranslation;
+interface lightConfig {
+  light: lightProp;
+  onClick: () => void;
 }
 
 const orientationTranslation = {
@@ -30,7 +13,7 @@ const orientationTranslation = {
   west: "270",
 };
 
-const TrafficPhase = (light: lightProp) => {
+const PhaseConfig = ({light, onClick}: lightConfig) => {
   const [type, setType] = useState(light.intersectionType || "quad");
   return (
     <div
@@ -40,7 +23,9 @@ const TrafficPhase = (light: lightProp) => {
         }.svg)`,
         width: "900px",
         height: "900px",
-        transform: `rotate(${orientationTranslation[light.orientation || "north"]}deg)`,
+        transform: `rotate(${
+          orientationTranslation[light.orientation || "north"]
+        }deg)`,
       }}
     >
       <img
@@ -203,5 +188,5 @@ const TrafficPhase = (light: lightProp) => {
   );
 };
 
-export default TrafficPhase;
-export type { lightProp };
+export default PhaseConfig;
+export type { lightConfig };

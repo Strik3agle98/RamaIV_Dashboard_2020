@@ -4,6 +4,7 @@ import styles from "./index.module.scss";
 import Home from "./Home";
 import NavBar from "./NavBar";
 import Dashboard from "./Dashboard";
+import Config from "./Config";
 import "./App.less";
 import "./main.scss";
 
@@ -27,6 +28,7 @@ function App() {
             <Home />
           </Route>
           <Route path="/dashboard/:id" children={<Dashboard />} />
+          <Route path="/config/:id" children={<Config />} />
         </Switch>
       </Router>
     </div>

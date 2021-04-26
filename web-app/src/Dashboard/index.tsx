@@ -9,6 +9,8 @@ import { externalEndpoint } from "../const";
 import { getJunctionAPI, getIncidentAPI } from "../api/dashboard";
 import GoogleMapReact from "google-map-react";
 import { ResponsiveLine } from "@nivo/line";
+import { Link } from "react-router-dom";
+import { EditOutlined } from "@ant-design/icons";
 
 interface ParamTypes {
   id: string;
@@ -130,23 +132,38 @@ const Section1 = ({ lat, lng, camera }: Section1Props) => {
   );
 };
 
-const Section2 = () => {
+type Section2Props = {
+  id?: string;
+};
+
+const Section2 = ({ id }: Section2Props) => {
   const [light, setLight] = useState<lightProp>({
     north: false,
-    northTurn: true,
+    northRight: true,
+    northLeft: false,
+    northU: false,
     east: false,
-    eastTurn: false,
+    eastLeft: false,
+    eastRight: false,
+    eastU: false,
     south: false,
-    southTurn: false,
+    southLeft: false,
+    southRight: false,
+    southU: false,
     west: false,
-    westTurn: false,
-    intersectionType: "normal",
+    westLeft: false,
+    westRight: false,
+    westU: false,
+    intersectionType: "quad",
     orientation: "north",
   });
   return (
     <div>
       <Row justify="center">
         <h3>สัญญาณไปจราจร</h3>
+        <Link to={`/config/${id}`}>
+          <EditOutlined style={{ marginLeft: "10px" }} />
+        </Link>
       </Row>
       <Row justify="center">
         <TrafficPhase {...light} />
@@ -165,19 +182,6 @@ const Dashboard = () => {
     lat: undefined,
     lng: undefined,
     camera: [],
-  });
-
-  const [light, setLight] = useState<lightProp>({
-    north: false,
-    northTurn: true,
-    east: false,
-    eastTurn: false,
-    south: false,
-    southTurn: false,
-    west: false,
-    westTurn: false,
-    intersectionType: "normal",
-    orientation: "north",
   });
 
   useEffect(() => {
@@ -218,9 +222,8 @@ const Dashboard = () => {
       {section === 0 ? (
         <Section1 lat={data.lat} lng={data.lng} camera={data.camera} />
       ) : (
-        <Section2 />
+        <Section2 id={id} />
       )}
-
 
       {/* <Row className={styles.row} justify="space-around">
         <Col span={15}>
