@@ -3,6 +3,7 @@ import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import styles from "./index.module.scss";
 import Home from "./Home";
 import NavBar from "./NavBar";
+import Kepler from "./Kepler";
 import Dashboard from "./Dashboard";
 import "./App.less";
 import "./main.scss";
@@ -22,6 +23,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route path="/kepler">
+            <Kepler />
           </Route>
           <Route path="/about">
             <Home />

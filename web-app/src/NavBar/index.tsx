@@ -31,6 +31,9 @@ const NavBar = () => {
               <Link to="/">Home</Link>
             </Menu.Item>
             <Menu.Item>
+              <Link to="/kepler">HTML Map</Link>
+            </Menu.Item>
+            <Menu.Item>
               <Link to="/about">About</Link>
             </Menu.Item>
           </Menu>
