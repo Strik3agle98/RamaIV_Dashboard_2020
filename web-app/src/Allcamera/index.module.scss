@@ -1,0 +1,26 @@
+.container {
+  width: 100vw;
+}
+
+.row {
+  width: 100%;
+}
+
+.map {
+  margin: auto;
+  height: 500px;
+  width: 100%;
+}
+
+.listContainer {
+  margin-top: 10px;
+  background-color: #323436;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.listDescription {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
