@@ -1,3 +1,7 @@
+from app.database import (database)
+from fastapi.responses import JSONResponse
+from fastapi.encoders import jsonable_encoder
+
 junctions = {
     2: {"id": 2, "name": "หัวลำโพง", "lat": 13.737908, "lng": 100.516311, "camera": [951]},
     3: {"id": 3, "name": "มหานคร", "lat": 13.736726, "lng": 100.519133, "camera": []},
@@ -22,3 +26,8 @@ def get_junction(id):
     if (id not in junctions):
         return "id doesn't exist on database"
     return junctions[id]
+
+async def create_junction(junction):
+    junction = jsonable_encoder(junction)
+    new_junction = await database['junctions'].insert_one(junction)
+    return new_junction

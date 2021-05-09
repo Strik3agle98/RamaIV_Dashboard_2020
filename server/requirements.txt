@@ -1,0 +1,7 @@
+motor
+fastapi
+uvicorn
+starlette
+requests
+numpy
+dnspython
