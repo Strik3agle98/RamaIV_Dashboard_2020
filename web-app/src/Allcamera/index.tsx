@@ -30,7 +30,7 @@ const Allcamera = () => {
       >
       </Row>
       <h1>All Cameras</h1>
-        <GetLocalCameras user={key} />
+        <GetLocalCameras key={key} />
       <br/>
     </div>
   );
