@@ -9,17 +9,6 @@ import GetLocalCameras from '../Component/LocalCameras/GetLocalCameras';
 
 const Allcamera = () => {
 
-  const [key, setKey] = useState(0);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setKey(Date.now());
-    }, 4000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
-
   return (
     <div className={styles.container}>
       <Row
@@ -30,7 +19,7 @@ const Allcamera = () => {
       >
       </Row>
       <h1>All Cameras</h1>
-        <GetLocalCameras key={key} />
+        <GetLocalCameras/>
       <br/>
     </div>
   );
