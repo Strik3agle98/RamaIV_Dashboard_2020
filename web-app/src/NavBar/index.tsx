@@ -31,7 +31,7 @@ const NavBar = () => {
               <Link to="/">Home</Link>
             </Menu.Item>
             <Menu.Item>
-              <Link to="/allcamera">All camera</Link>
+              <Link to="/allcamera">All Cameras</Link>
             </Menu.Item>
             <Menu.Item>
               <Link to="/kepler">HTML Map</Link>
