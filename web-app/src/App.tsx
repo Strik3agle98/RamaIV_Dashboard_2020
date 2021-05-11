@@ -5,6 +5,7 @@ import Home from "./Home";
 import NavBar from "./NavBar";
 import Kepler from "./Kepler";
 import Dashboard from "./Dashboard";
+import Allcamera from "./Allcamera";
 import "./App.less";
 import "./main.scss";
 
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route path="/kepler">
             <Kepler />
+          </Route>
+          <Route path="/allcamera">
+            <Allcamera />
           </Route>
           <Route path="/about">
             <Home />
