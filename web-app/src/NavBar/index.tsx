@@ -34,7 +34,7 @@ const NavBar = () => {
               <Link to="/allcamera">All Cameras</Link>
             </Menu.Item>
             <Menu.Item>
-              <Link to="/kepler">HTML Map</Link>
+              <Link to="/htmlmap">HTML Map</Link>
             </Menu.Item>
             <Menu.Item>
               <Link to="/about">About</Link>

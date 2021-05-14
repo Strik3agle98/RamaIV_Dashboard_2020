@@ -1,8 +1,7 @@
 import { Row, Menu } from "antd";
 import styles from "./index.module.scss";
-import { Link } from "react-router-dom";
 
-const Kepler = () => {
+const HTMLMap = () => {
 
   return (
     <div className={styles.container}>
@@ -48,4 +47,4 @@ const Kepler = () => {
   );
 };
 
-export default Kepler;
+export default HTMLMap;
