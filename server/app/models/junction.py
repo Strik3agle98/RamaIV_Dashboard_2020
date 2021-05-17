@@ -19,11 +19,6 @@ class PyObjectId(ObjectId):
         field_schema.update(type="string")
 
 
-class PhaseModel(BaseModel):
-    name: str = Field(...)
-    lat: float = Field(...)
-
-
 def JunctionHelper(junction):
     return {"id": str(junction['_id']),
             "lat": junction['lat'],
@@ -43,6 +38,25 @@ def AllJunctionHelper(junction):
             "orientation": junction['orientation'], }
 
 
+class PhaseModel(BaseModel):
+    north: int = Field(...)
+    northRight: int = Field(...)
+    northLeft: int = Field(...)
+    northU: int = Field(...)
+    east: int = Field(...)
+    eastRight: int = Field(...)
+    eastLeft: int = Field(...)
+    eastU: int = Field(...)
+    south: int = Field(...)
+    southRight: int = Field(...)
+    southLeft: int = Field(...)
+    southU: int = Field(...)
+    west: int = Field(...)
+    westRight: int = Field(...)
+    westLeft: int = Field(...)
+    westU: int = Field(...)
+
+
 class JunctionModel(BaseModel):
     name: str = Field(...)
     lat: float = Field(...)
@@ -51,4 +65,4 @@ class JunctionModel(BaseModel):
     intersectionType: str = Field(...)
     orientation: str = Field(...)
     # 0: red, 1: green, 2: none
-    light: Dict[int, PhaseModel] = dict()
+    light: Dict[str, PhaseModel] = dict()
