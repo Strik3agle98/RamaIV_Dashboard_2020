@@ -64,10 +64,11 @@ async def create_junction(junction: JunctionModel = Body(...)):
 
 @app.post("/junction/{id}", response_description="Update junction")
 async def update_junction(id: str, junction_update: JunctionModel = Body(...)):
-    if len(junction_update) < 1:
+    if not junction_update:
         return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST)
     junction = await junction_collection.find_one({"_id": ObjectId(id)})
     if junction:
-        updated_junction = await junction_collection.update_one({{"_id": ObjectId(id)}, {"$set": junction_update}})
+        junction_update = jsonable_encoder(junction_update)
+        updated_junction = await junction_collection.update_one({"_id": ObjectId(id)}, {"$set": junction_update})
         if updated_junction:
             return JSONResponse(status_code=status.HTTP_204_NO_CONTENT)

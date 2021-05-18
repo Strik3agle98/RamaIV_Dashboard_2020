@@ -40,6 +40,8 @@ def AllJunctionHelper(junction):
             "orientation": junction['orientation'], }
 
 
+
+
 class PhaseModel(BaseModel):
     north: int = Field(...)
     northRight: int = Field(...)
