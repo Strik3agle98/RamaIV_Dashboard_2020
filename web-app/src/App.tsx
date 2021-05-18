@@ -5,6 +5,7 @@ import Home from "./Home";
 import NavBar from "./NavBar";
 import Dashboard from "./Dashboard";
 import Config from "./Config";
+import Create from "./Create";
 import "./App.less";
 import "./main.scss";
 
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route path="/dashboard/:id" children={<Dashboard />} />
           <Route path="/config/:id" children={<Config />} />
+          <Route path="/create">
+            <Create />
+          </Route>
         </Switch>
       </Router>
     </div>

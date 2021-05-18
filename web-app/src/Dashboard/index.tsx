@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Row, Col, List, Modal, Button } from "antd";
 import styles from "./index.module.scss";
 import { TrafficPhase } from "../Component";
-import type { lightProp } from "../Component";
+import type { lightProp, light } from "../Component";
 import { externalEndpoint } from "../const";
 import { getJunctionAPI, getIncidentAPI } from "../api/dashboard";
 import GoogleMapReact from "google-map-react";
@@ -137,25 +137,23 @@ type Section2Props = {
 };
 
 const Section2 = ({ id }: Section2Props) => {
-  const [light, setLight] = useState<lightProp>({
-    north: false,
-    northRight: true,
-    northLeft: false,
-    northU: false,
-    east: false,
-    eastLeft: false,
-    eastRight: false,
-    eastU: false,
-    south: false,
-    southLeft: false,
-    southRight: false,
-    southU: false,
-    west: false,
-    westLeft: false,
-    westRight: false,
-    westU: false,
-    intersectionType: "quad",
-    orientation: "north",
+  const [light, setLight] = useState<light>({
+    north: 0,
+    northRight: 0,
+    northLeft: 0,
+    northU: 0,
+    east: 0,
+    eastLeft: 0,
+    eastRight: 0,
+    eastU: 0,
+    south: 0,
+    southLeft: 0,
+    southRight: 0,
+    southU: 0,
+    west: 0,
+    westLeft: 0,
+    westRight: 0,
+    westU: 0,
   });
   return (
     <div>
@@ -166,7 +164,11 @@ const Section2 = ({ id }: Section2Props) => {
         </Link>
       </Row>
       <Row justify="center">
-        <TrafficPhase {...light} />
+        <TrafficPhase
+          light={light}
+          intersectionType="quad"
+          orientation="north"
+        />
       </Row>
     </div>
   );

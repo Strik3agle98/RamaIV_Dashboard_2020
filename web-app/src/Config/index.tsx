@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styles from "./index.module.scss";
 import { Row, Col, Select, InputNumber } from "antd";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
-import type { lightProp, orientations } from "../Component";
+import type { lightProp, orientations, light } from "../Component";
 import { PhaseConfig } from "../Component";
 
 const { Option } = Select;
@@ -10,27 +11,31 @@ const intersectionTemplates = ["quad", "tri", "phraKanong"];
 
 const Orientations = ["north", "east", "south", "west"];
 
+interface ParamTypes {
+  id: string;
+}
+
 const Config = () => {
+  const { id } = useParams<ParamTypes>();
   const [phase, setPhase] = useState(1);
-  const [light, setLight] = useState<lightProp>({
-    north: false,
-    northRight: true,
-    northLeft: false,
-    northU: false,
-    east: false,
-    eastLeft: false,
-    eastRight: false,
-    eastU: false,
-    south: false,
-    southLeft: false,
-    southRight: false,
-    southU: false,
-    west: false,
-    westLeft: false,
-    westRight: false,
-    westU: false,
-    intersectionType: "quad",
-    orientation: "north",
+  const [junction, setjunction] = useState({});
+  const [light, setLight] = useState<light>({
+    north: 0,
+    northRight: 0,
+    northLeft: 0,
+    northU: 0,
+    east: 0,
+    eastLeft: 0,
+    eastRight: 0,
+    eastU: 0,
+    south: 0,
+    southLeft: 0,
+    southRight: 0,
+    southU: 0,
+    west: 0,
+    westLeft: 0,
+    westRight: 0,
+    westU: 0,
   });
 
   const handleClick = (key: keyof typeof light) => {
@@ -40,7 +45,7 @@ const Config = () => {
 
   return (
     <div className={styles.container}>
-      <Row className={styles.subContainer} justify="center">
+      {/* <Row className={styles.subContainer} justify="center">
         <h2>Intersection Template</h2>
       </Row>
       <Row className={styles.subContainer} justify="center">
@@ -98,8 +103,13 @@ const Config = () => {
         </Row>
       )}
       <Row className={styles.subContainer} justify="center">
-        <PhaseConfig light={light} onClick={handleClick} />
-      </Row>
+        <PhaseConfig
+          light={light}
+          intersectionType="quad"
+          orientation="north"
+          onClick={handleClick}
+        />
+      </Row> */}
     </div>
   );
 };

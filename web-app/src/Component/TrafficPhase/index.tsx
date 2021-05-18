@@ -2,23 +2,26 @@ import React, { useState } from "react";
 import { transform } from "typescript";
 import styles from "./index.module.scss";
 
+interface light {
+  north?: number;
+  northRight?: number;
+  northLeft?: number;
+  northU?: number;
+  east?: number;
+  eastRight?: number;
+  eastLeft?: number;
+  eastU?: number;
+  south?: number;
+  southRight?: number;
+  southLeft?: number;
+  southU?: number;
+  west?: number;
+  westRight?: number;
+  westLeft?: number;
+  westU?: number;
+}
 interface lightProp {
-  north?: boolean;
-  northRight?: boolean;
-  northLeft?: boolean;
-  northU?: boolean;
-  east?: boolean;
-  eastRight?: boolean;
-  eastLeft?: boolean;
-  eastU?: boolean;
-  south?: boolean;
-  southRight?: boolean;
-  southLeft?: boolean;
-  southU?: boolean;
-  west?: boolean;
-  westRight?: boolean;
-  westLeft?: boolean;
-  westU?: boolean;
+  light: light;
   intersectionType?: string;
   orientation?: orientations;
 }
@@ -32,8 +35,8 @@ export const orientationTranslation = {
 
 export type orientations = "north" | "east" | "south" | "west" | undefined;
 
-const TrafficPhase = (light: lightProp) => {
-  const [type, setType] = useState(light.intersectionType || "quad");
+const TrafficPhase = ({ light, intersectionType, orientation }: lightProp) => {
+  const [type, setType] = useState(intersectionType || "quad");
   return (
     <div
       style={{
@@ -43,7 +46,7 @@ const TrafficPhase = (light: lightProp) => {
         width: "900px",
         height: "900px",
         transform: `rotate(${
-          orientationTranslation[light.orientation || "north"]
+          orientationTranslation[orientation || "north"]
         }deg)`,
       }}
     >
@@ -208,4 +211,4 @@ const TrafficPhase = (light: lightProp) => {
 };
 
 export default TrafficPhase;
-export type { lightProp };
+export type { lightProp, light };
