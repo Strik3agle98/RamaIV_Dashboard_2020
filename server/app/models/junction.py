@@ -21,6 +21,7 @@ class PyObjectId(ObjectId):
 
 def JunctionHelper(junction):
     return {"id": str(junction['_id']),
+            "name": junction['name'],
             "lat": junction['lat'],
             "lng": junction['lng'],
             "camera": junction['camera'],
@@ -31,6 +32,7 @@ def JunctionHelper(junction):
 
 def AllJunctionHelper(junction):
     return {"id": str(junction['_id']),
+            "name": junction['name'],
             "lat": junction['lat'],
             "lng": junction['lng'],
             "camera": junction['camera'],

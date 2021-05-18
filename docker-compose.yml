@@ -1,14 +1,16 @@
 version: "3"
 services:
-  # web-app:
-  #   build: ./web-app
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     - rama4
+  web-app:
+    build: ./web-app
+    ports:
+      - "3000:3000"
+    networks:
+      - rama4
   server:
     build:
       context: ./server
+    environment:
+      -MONGO_ADDRESS=mongodb://mongo:27017
     ports:
       - "8000:8000"
     networks:
