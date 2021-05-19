@@ -1,16 +1,17 @@
 import React, { useEffect, useState, lazy } from "react";
 import LazyLoad from "react-lazyload";
 import { useParams } from "react-router-dom";
-import { Row, Col, List, Modal, Button } from "antd";
+import { Row, Col, List, Modal, Button, InputNumber } from "antd";
 import styles from "./index.module.scss";
 import { TrafficPhase } from "../Component";
-import type { lightProp, light } from "../Component";
+import type { light } from "../const";
 import { externalEndpoint } from "../const";
 import { getJunctionAPI, getIncidentAPI } from "../api/dashboard";
 import GoogleMapReact from "google-map-react";
 import { ResponsiveLine } from "@nivo/line";
 import { Link } from "react-router-dom";
 import { EditOutlined } from "@ant-design/icons";
+import type { junctionType } from "../const";
 
 interface ParamTypes {
   id: string;
@@ -133,10 +134,10 @@ const Section1 = ({ lat, lng, camera }: Section1Props) => {
 };
 
 type Section2Props = {
-  id?: string;
+  data: junctionType;
 };
 
-const Section2 = ({ id }: Section2Props) => {
+const Section2 = ({ data }: Section2Props) => {
   const [light, setLight] = useState<light>({
     north: 0,
     northRight: 0,
@@ -155,13 +156,26 @@ const Section2 = ({ id }: Section2Props) => {
     westRight: 0,
     westU: 0,
   });
+  const [phase, setPhase] = useState(1);
+  useEffect(() => {
+    if (data.light[phase]) {
+      setLight(data.light[phase]);
+    }
+  }, [phase]);
   return (
     <div>
       <Row justify="center">
         <h3>สัญญาณไปจราจร</h3>
-        <Link to={`/config/${id}`}>
-          <EditOutlined style={{ marginLeft: "10px" }} />
-        </Link>
+      </Row>
+      <Row justify="center">
+        <InputNumber
+          value={phase}
+          onChange={(value) => {
+            if (value && typeof value === "number") {
+              setPhase(value);
+            }
+          }}
+        />
       </Row>
       <Row justify="center">
         <TrafficPhase
@@ -178,12 +192,14 @@ const Dashboard = () => {
   const { id } = useParams<ParamTypes>();
   const [key, setKey] = useState(0);
   const [section, setSection] = useState(0);
-  const [data, setData] = useState({
-    id: undefined,
+  const [data, setData] = useState<junctionType>({
     name: "",
-    lat: undefined,
-    lng: undefined,
+    lat: 0,
+    lng: 0,
     camera: [],
+    intersectionType: "quad",
+    orientation: "north",
+    light: {},
   });
 
   useEffect(() => {
@@ -202,6 +218,9 @@ const Dashboard = () => {
         align="middle"
       >
         <h2>{`แยก${data.name}`}</h2>
+        <Link to={`/config/${data.id}`}>
+          <EditOutlined style={{ marginLeft: "10px" }} />
+        </Link>
       </Row>
       <Row className={styles.row} justify="center" align="middle">
         <Button
@@ -224,7 +243,7 @@ const Dashboard = () => {
       {section === 0 ? (
         <Section1 lat={data.lat} lng={data.lng} camera={data.camera} />
       ) : (
-        <Section2 id={id} />
+        <Section2 data={data} />
       )}
 
       {/* <Row className={styles.row} justify="space-around">

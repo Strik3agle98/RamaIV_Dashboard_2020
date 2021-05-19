@@ -7,6 +7,7 @@ import type { lightProp, orientations, light } from "../Component";
 import { PhaseConfig } from "../Component";
 import { getJunctionAPI, editJunctionAPI } from "../api/dashboard";
 import { externalEndpoint } from "../const";
+import type { junctionType } from "../const";
 
 const { Option } = Select;
 const intersectionTemplates = ["quad", "tri", "phraKanong"];
@@ -34,16 +35,6 @@ const initialLight = {
 
 interface ParamTypes {
   id: string;
-}
-
-interface junctionType {
-  name: string;
-  lat: number;
-  lng: number;
-  camera: Array<number>;
-  intersectionType: string;
-  orientation: orientations;
-  light: { [key: number]: light };
 }
 
 const Config = () => {

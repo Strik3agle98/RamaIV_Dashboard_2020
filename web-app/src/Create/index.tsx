@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styles from "./index.module.scss";
-import { Row, Col, Select, InputNumber, Input } from "antd";
+import { Row, Col, Select, InputNumber, Input, Button } from "antd";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import type { lightProp, orientations, light } from "../Component";
 import { PhaseConfig } from "../Component";
+import { externalEndpoint } from "../const";
+import type { junctionType } from "../const";
+import { createJunctionAPI } from "../api/dashboard";
 
 const { Option } = Select;
 const intersectionTemplates = ["quad", "tri", "phraKanong"];
@@ -34,18 +37,7 @@ interface ParamTypes {
   id: string;
 }
 
-interface junctionType {
-  name: string;
-  lat: number;
-  lng: number;
-  camera: Array<number>;
-  intersectionType: string;
-  orientation: orientations;
-  light: { [key: number]: light };
-}
-
 const Config = () => {
-  const { id } = useParams<ParamTypes>();
   const [phase, setPhase] = useState(1);
   const [junction, setjunction] = useState<junctionType>({
     name: "",
@@ -57,6 +49,7 @@ const Config = () => {
     light: {},
   });
   //0: red, 1: green, 2: none
+  let history = useHistory();
 
   const handleClick = (key: keyof light) => {
     if (!junction.light[phase]) {
@@ -114,6 +107,7 @@ const Config = () => {
         <Col span={6}>
           <h4>Latitude</h4>
           <InputNumber
+            value={junction.lat}
             style={{ width: "100%" }}
             size="large"
             onChange={(value) => {
@@ -126,6 +120,7 @@ const Config = () => {
         <Col span={6}>
           <h4>Longtitude</h4>
           <InputNumber
+            value={junction.lng}
             style={{ width: "100%" }}
             size="large"
             onChange={(value) => {
@@ -177,6 +172,7 @@ const Config = () => {
             style={{ width: "100%" }}
             size="large"
             defaultValue={1}
+            value={phase}
             onChange={(value) => {
               if (value && typeof value === "number") {
                 setPhase(value);
@@ -228,8 +224,27 @@ const Config = () => {
           onClick={handleClick}
         />
       </Row>
+      <Row className={styles.subContainer} justify="center">
+        <Col span={12}>
+          <Row justify="end">
+            <Button
+              size="large"
+              onClick={() => {
+                createJunctionAPI(externalEndpoint)(junction).then(
+                  (response) => {
+                    history.push(`/dashboard/${response.data.id}`);
+                  }
+                );
+              }}
+            >
+              ยืนยัน
+            </Button>
+          </Row>
+        </Col>
+      </Row>
     </div>
   );
 };
 
 export default Config;
+export type { junctionType };

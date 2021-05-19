@@ -1,11 +1,14 @@
 import Axios from "axios";
-import type { junctionType } from "../Create";
+import type { junctionType } from "../const";
 
 export const getImageAPI = (APIlocation: string) => (id: string) =>
   Axios.get(`${APIlocation}image/${id}`);
 
 export const getJunctionAPI = (APIlocation: string) => (id: string) =>
   Axios.get(`${APIlocation}junction/${id}`);
+
+  export const getAllJunctionAPI = (APIlocation: string) =>
+  Axios.get(`${APIlocation}junction`);
 
 export const getIncidentAPI = () =>
   Axios.get("https://event.longdo.com/feed/json");
