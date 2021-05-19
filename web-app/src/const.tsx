@@ -1,5 +1,5 @@
 export const externalEndpoint =
-  process.env.REACT_APP_ENDPOINT || "http://localhost:8000/";
+  process.env.REACT_APP_ENDPOINT || "http://server:8000/";
 
 export interface junctionType {
   id?: string;
