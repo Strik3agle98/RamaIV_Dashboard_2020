@@ -3,9 +3,11 @@ import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import styles from "./index.module.scss";
 import Home from "./Home";
 import NavBar from "./NavBar";
+import HTMLMap from "./HTMLMap";
 import Dashboard from "./Dashboard";
 import Config from "./Config";
 import Create from "./Create";
+import Allcamera from "./Allcamera";
 import "./App.less";
 import "./main.scss";
 
@@ -24,6 +26,12 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route path="/htmlmap">
+            <HTMLMap />
+          </Route>
+          <Route path="/allcamera">
+            <Allcamera />
           </Route>
           <Route path="/about">
             <Home />

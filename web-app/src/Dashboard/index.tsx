@@ -165,7 +165,7 @@ const Section2 = ({ data }: Section2Props) => {
   return (
     <div>
       <Row justify="center">
-        <h3>สัญญาณไปจราจร</h3>
+        <h3>สัญญาณไฟจราจร</h3>
       </Row>
       <Row justify="center">
         <InputNumber
