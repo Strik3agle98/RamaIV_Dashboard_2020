@@ -39,6 +39,9 @@ const NavBar = () => {
             <Menu.Item>
               <Link to="/about">About</Link>
             </Menu.Item>
+            <Menu.Item>
+              <Link to="/create">Create</Link>
+            </Menu.Item>
           </Menu>
         </Col>
       </Row>

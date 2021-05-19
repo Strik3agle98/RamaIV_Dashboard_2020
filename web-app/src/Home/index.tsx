@@ -6,8 +6,10 @@ import TrafficLight from "react-trafficlight";
 import { CameraFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { externalEndpoint } from "../const";
+import { getAllJunctionAPI } from "../api/dashboard";
+import { junctionType } from "../const";
 
-const junctions = [
+const temp_junctions = [
   { id: 2, name: "หัวลำโพง", lat: 13.737908, lng: 100.516311 },
   { id: 3, name: "มหานคร", lat: 13.736726, lng: 100.519133 },
   { id: 4, name: "สะพานเหลือง", lat: 13.735735, lng: 100.52161 },
@@ -29,9 +31,10 @@ const junctions = [
 interface junctionProp {
   lat: number;
   lng: number;
-  id: number;
+  id: string;
   name: string;
 }
+
 
 const Junction = ({ lat, lng, id, name }: junctionProp) => {
   const [popup, setPopup] = useState(false);
@@ -69,10 +72,12 @@ const Junction = ({ lat, lng, id, name }: junctionProp) => {
 };
 
 const Home = () => {
+  const [junctions, setJunctions] = useState<Array<junctionProp>>([]);
   useEffect(() => {
-    console.log("bitch!");
+    getAllJunctionAPI(externalEndpoint).then((response) => {
+      setJunctions(response.data)
+    })
     const interval = setInterval(() => {
-      console.log("update!");
     }, 10000);
     return () => clearInterval(interval);
   }, []);

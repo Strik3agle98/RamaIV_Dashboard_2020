@@ -1,14 +1,17 @@
 import React, { useEffect, useState, lazy } from "react";
 import LazyLoad from "react-lazyload";
 import { useParams } from "react-router-dom";
-import { Row, Col, List, Modal, Button } from "antd";
+import { Row, Col, List, Modal, Button, InputNumber } from "antd";
 import styles from "./index.module.scss";
 import { TrafficPhase } from "../Component";
-import type { lightProp } from "../Component";
+import type { light } from "../const";
 import { externalEndpoint } from "../const";
 import { getJunctionAPI, getIncidentAPI } from "../api/dashboard";
 import GoogleMapReact from "google-map-react";
 import { ResponsiveLine } from "@nivo/line";
+import { Link } from "react-router-dom";
+import { EditOutlined } from "@ant-design/icons";
+import type { junctionType } from "../const";
 
 interface ParamTypes {
   id: string;
@@ -130,26 +133,56 @@ const Section1 = ({ lat, lng, camera }: Section1Props) => {
   );
 };
 
-const Section2 = () => {
-  const [light, setLight] = useState<lightProp>({
-    north: false,
-    northTurn: true,
-    east: false,
-    eastTurn: false,
-    south: false,
-    southTurn: false,
-    west: false,
-    westTurn: false,
-    intersectionType: "normal",
-    orientation: "north",
+type Section2Props = {
+  data: junctionType;
+};
+
+const Section2 = ({ data }: Section2Props) => {
+  const [light, setLight] = useState<light>({
+    north: 0,
+    northRight: 0,
+    northLeft: 0,
+    northU: 0,
+    east: 0,
+    eastLeft: 0,
+    eastRight: 0,
+    eastU: 0,
+    south: 0,
+    southLeft: 0,
+    southRight: 0,
+    southU: 0,
+    west: 0,
+    westLeft: 0,
+    westRight: 0,
+    westU: 0,
   });
+  const [phase, setPhase] = useState(1);
+  useEffect(() => {
+    if (data.light[phase]) {
+      setLight(data.light[phase]);
+    }
+  }, [phase]);
   return (
     <div>
       <Row justify="center">
         <h3>สัญญาณไฟจราจร</h3>
       </Row>
       <Row justify="center">
-        <TrafficPhase {...light} />
+        <InputNumber
+          value={phase}
+          onChange={(value) => {
+            if (value && typeof value === "number") {
+              setPhase(value);
+            }
+          }}
+        />
+      </Row>
+      <Row justify="center">
+        <TrafficPhase
+          light={light}
+          intersectionType={data.intersectionType}
+          orientation={data.orientation}
+        />
       </Row>
     </div>
   );
@@ -159,25 +192,14 @@ const Dashboard = () => {
   const { id } = useParams<ParamTypes>();
   const [key, setKey] = useState(0);
   const [section, setSection] = useState(0);
-  const [data, setData] = useState({
-    id: undefined,
+  const [data, setData] = useState<junctionType>({
     name: "",
-    lat: undefined,
-    lng: undefined,
+    lat: 0,
+    lng: 0,
     camera: [],
-  });
-
-  const [light, setLight] = useState<lightProp>({
-    north: false,
-    northTurn: true,
-    east: false,
-    eastTurn: false,
-    south: false,
-    southTurn: false,
-    west: false,
-    westTurn: false,
-    intersectionType: "normal",
+    intersectionType: "quad",
     orientation: "north",
+    light: {},
   });
 
   useEffect(() => {
@@ -196,6 +218,9 @@ const Dashboard = () => {
         align="middle"
       >
         <h2>{`แยก${data.name}`}</h2>
+        <Link to={`/config/${data.id}`}>
+          <EditOutlined style={{ marginLeft: "10px" }} />
+        </Link>
       </Row>
       <Row className={styles.row} justify="center" align="middle">
         <Button
@@ -218,9 +243,8 @@ const Dashboard = () => {
       {section === 0 ? (
         <Section1 lat={data.lat} lng={data.lng} camera={data.camera} />
       ) : (
-        <Section2 />
+        <Section2 data={data} />
       )}
-
 
       {/* <Row className={styles.row} justify="space-around">
         <Col span={15}>

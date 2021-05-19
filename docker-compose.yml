@@ -1,17 +1,35 @@
 version: "3"
 services:
-  web-app:
-    build: ./web-app
+  # web-app:
+  #   build: ./web-app
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - rama4
+  # server:
+  #   build:
+  #     context: ./server
+  #   environment:
+  #     - MONGO_ADDRESS=mongodb://mongo:27017
+  #   ports:
+  #     - "8000:8000"
+  #   networks:
+  #     - rama4
+
+  mongo:
+    image: mongo
+    volumes:
+      - mongo:/mongo_rama_iv/db
+    environment:
+          - MONGO_INITDB_ROOT_USERNAME:root
+          - MONGO_INITDB_ROOT_PASSWORD:password
     ports:
-      - "3000:3000"
+          - "27017:27017"
     networks:
       - rama4
-  server:
-    build: ./server
-    ports:
-      - "8000:8000"
-    networks:
-      - rama4
+# command: mongod
 networks: 
   rama4:
     driver: bridge
+volumes:
+  mongo:

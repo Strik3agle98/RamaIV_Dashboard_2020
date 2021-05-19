@@ -3,6 +3,7 @@
 logs
 *.log
 npm-debug.log*
+*.pyc
 
 # dependencies
 /web-app/node_modules

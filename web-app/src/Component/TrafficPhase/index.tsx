@@ -2,37 +2,51 @@ import React, { useState } from "react";
 import { transform } from "typescript";
 import styles from "./index.module.scss";
 
+interface light {
+  north?: number;
+  northRight?: number;
+  northLeft?: number;
+  northU?: number;
+  east?: number;
+  eastRight?: number;
+  eastLeft?: number;
+  eastU?: number;
+  south?: number;
+  southRight?: number;
+  southLeft?: number;
+  southU?: number;
+  west?: number;
+  westRight?: number;
+  westLeft?: number;
+  westU?: number;
+}
 interface lightProp {
-  north: boolean;
-  northTurn: boolean;
-  east: boolean;
-  eastTurn: boolean;
-  south: boolean;
-  southTurn: boolean;
-  west: boolean;
-  westTurn: boolean;
+  light: light;
   intersectionType?: string;
-  orientation?: keyof typeof orientationTranslation;
+  orientation?: orientations;
 }
 
-const orientationTranslation = {
+export const orientationTranslation = {
   north: "0",
   east: "90",
   south: "180",
   west: "270",
 };
 
-const TrafficPhase = (light: lightProp) => {
-  const [type, setType] = useState(light.intersectionType || "normal");
+export type orientations = "north" | "east" | "south" | "west" | undefined;
+
+const TrafficPhase = ({ light, intersectionType, orientation }: lightProp) => {
   return (
     <div
       style={{
         backgroundImage: `url(/asset/traffic-phase${
-          type === "normal" ? "" : "-tri"
+          intersectionType === "quad" ? "" : "-tri"
         }.svg)`,
         width: "900px",
         height: "900px",
-        transform: `rotate(${orientationTranslation[light.orientation || "north"]}deg)`,
+        transform: `rotate(${
+          orientationTranslation[orientation || "north"]
+        }deg)`,
       }}
     >
       <img
@@ -42,7 +56,7 @@ const TrafficPhase = (light: lightProp) => {
           marginTop: "575px",
           marginLeft: "675px",
         }}
-        src={`/asset/arrow-left-${light.east ? "green" : "red"}.svg`}
+        src={`/asset/arrow-left-${light.eastLeft ? "green" : "red"}.svg`}
       />
       <img
         style={{
@@ -60,7 +74,7 @@ const TrafficPhase = (light: lightProp) => {
           marginTop: "375px",
           marginLeft: "675px",
         }}
-        src={`/asset/arrow-turn-${light.eastTurn ? "green" : "red"}.svg`}
+        src={`/asset/arrow-turn-${light.eastRight ? "green" : "red"}.svg`}
       />
       <img
         style={{
@@ -69,7 +83,7 @@ const TrafficPhase = (light: lightProp) => {
           marginTop: "275px",
           marginLeft: "675px",
         }}
-        src={`/asset/arrow-u-${light.east ? "green" : "red"}.svg`}
+        src={`/asset/arrow-u-${light.eastU ? "green" : "red"}.svg`}
       />
       <img
         style={{
@@ -79,7 +93,7 @@ const TrafficPhase = (light: lightProp) => {
           marginLeft: "150px",
           transform: "rotate(90deg)",
         }}
-        src={`/asset/arrow-left-${light.south ? "green" : "red"}.svg`}
+        src={`/asset/arrow-left-${light.southLeft ? "green" : "red"}.svg`}
       />
       <img
         style={{
@@ -99,7 +113,7 @@ const TrafficPhase = (light: lightProp) => {
           marginLeft: "375px",
           transform: "rotate(90deg)",
         }}
-        src={`/asset/arrow-turn-${light.southTurn ? "green" : "red"}.svg`}
+        src={`/asset/arrow-turn-${light.southRight ? "green" : "red"}.svg`}
       />
       <img
         style={{
@@ -109,7 +123,7 @@ const TrafficPhase = (light: lightProp) => {
           marginLeft: "475px",
           transform: "rotate(90deg)",
         }}
-        src={`/asset/arrow-u-${light.southTurn ? "green" : "red"}.svg`}
+        src={`/asset/arrow-u-${light.southU ? "green" : "red"}.svg`}
       />
       <img
         style={{
@@ -119,7 +133,7 @@ const TrafficPhase = (light: lightProp) => {
           marginLeft: "0",
           transform: "rotate(180deg)",
         }}
-        src={`/asset/arrow-left-${light.west ? "green" : "red"}.svg`}
+        src={`/asset/arrow-left-${light.westLeft ? "green" : "red"}.svg`}
       />
       <img
         style={{
@@ -139,7 +153,7 @@ const TrafficPhase = (light: lightProp) => {
           marginLeft: "0",
           transform: "rotate(180deg)",
         }}
-        src={`/asset/arrow-turn-${light.westTurn ? "green" : "red"}.svg`}
+        src={`/asset/arrow-turn-${light.westRight ? "green" : "red"}.svg`}
       />
       <img
         style={{
@@ -149,7 +163,7 @@ const TrafficPhase = (light: lightProp) => {
           marginLeft: "0",
           transform: "rotate(180deg)",
         }}
-        src={`/asset/arrow-u-${light.westTurn ? "green" : "red"}.svg`}
+        src={`/asset/arrow-u-${light.westU ? "green" : "red"}.svg`}
       />
       <img
         style={{
@@ -159,7 +173,7 @@ const TrafficPhase = (light: lightProp) => {
           marginLeft: "535px",
           transform: "rotate(-90deg)",
         }}
-        src={`/asset/arrow-left-${light.north ? "green" : "red"}.svg`}
+        src={`/asset/arrow-left-${light.northLeft ? "green" : "red"}.svg`}
       />
       <img
         style={{
@@ -179,7 +193,7 @@ const TrafficPhase = (light: lightProp) => {
           marginLeft: "325px",
           transform: "rotate(-90deg)",
         }}
-        src={`/asset/arrow-turn-${light.northTurn ? "green" : "red"}.svg`}
+        src={`/asset/arrow-turn-${light.northRight ? "green" : "red"}.svg`}
       />
       <img
         style={{
@@ -189,11 +203,11 @@ const TrafficPhase = (light: lightProp) => {
           marginLeft: "200px",
           transform: "rotate(-90deg)",
         }}
-        src={`/asset/arrow-u-${light.northTurn ? "green" : "red"}.svg`}
+        src={`/asset/arrow-u-${light.northU ? "green" : "red"}.svg`}
       />
     </div>
   );
 };
 
 export default TrafficPhase;
-export type { lightProp };
+export type { lightProp, light };
