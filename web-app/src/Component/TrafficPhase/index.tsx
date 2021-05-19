@@ -36,12 +36,11 @@ export const orientationTranslation = {
 export type orientations = "north" | "east" | "south" | "west" | undefined;
 
 const TrafficPhase = ({ light, intersectionType, orientation }: lightProp) => {
-  const [type, setType] = useState(intersectionType || "quad");
   return (
     <div
       style={{
         backgroundImage: `url(/asset/traffic-phase${
-          type === "quad" ? "" : "-tri"
+          intersectionType === "quad" ? "" : "-tri"
         }.svg)`,
         width: "900px",
         height: "900px",

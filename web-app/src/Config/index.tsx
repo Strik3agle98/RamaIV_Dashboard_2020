@@ -169,6 +169,9 @@ const Config = () => {
         </Col>
       </Row>
       <Row className={styles.subContainer} justify="center">
+        <h3>Phase</h3>
+      </Row>
+      <Row className={styles.subContainer} justify="center">
         <Col span={12}>
           <InputNumber
             style={{ width: "100%" }}
@@ -220,8 +223,8 @@ const Config = () => {
             westRight: junction.light[phase]?.westRight || 0,
             westU: junction.light[phase]?.westU || 0,
           }}
-          intersectionType="quad"
-          orientation="north"
+          intersectionType={junction.intersectionType}
+          orientation={junction.orientation}
           onClick={handleClick}
         />
       </Row>

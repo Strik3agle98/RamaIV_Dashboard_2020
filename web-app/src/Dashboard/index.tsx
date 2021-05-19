@@ -180,8 +180,8 @@ const Section2 = ({ data }: Section2Props) => {
       <Row justify="center">
         <TrafficPhase
           light={light}
-          intersectionType="quad"
-          orientation="north"
+          intersectionType={data.intersectionType}
+          orientation={data.orientation}
         />
       </Row>
     </div>
