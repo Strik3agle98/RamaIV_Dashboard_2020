@@ -203,6 +203,9 @@ const Config = () => {
         </Row>
       )}
       <Row className={styles.subContainer} justify="center">
+        <h3>Click at the arrow to manipulate</h3>
+      </Row>
+      <Row className={styles.subContainer} justify="center">
         <PhaseConfig
           light={{
             north: junction.light[phase]?.north || 0,
