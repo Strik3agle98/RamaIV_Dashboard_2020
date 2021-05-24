@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { externalEndpoint } from "../../const";
 import LazyLoad from "react-lazyload";
-import { Row, Col } from "antd";
+import { Row } from "antd";
 
 import './GetLocalCameras.css'
 import cameras from './camera_json.js';
 
-
-// it's return a json file
 const GetLocalCameras = () => {
 
     const [key, setKey] = useState(0);
@@ -19,7 +17,7 @@ const GetLocalCameras = () => {
         clearInterval(interval);
         };
     }, []);
-    
+
     return(
         <div>
             <ol className="item">
