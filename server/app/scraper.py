@@ -10,7 +10,7 @@ def get_credential(id, session_requests):
     credentials[id] = {"cookie": cookie, "time": time.time()}
     print("update session:", str(id))
 
-def get_cctv(id):
+async def get_cctv(id):
     session_requests = requests.session()
     if id not in credentials:
         get_credential(id, session_requests)

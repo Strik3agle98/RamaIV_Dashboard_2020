@@ -30,7 +30,7 @@ app.add_middleware(
 
 @app.get("/image/{id}")
 async def get_image(id: int):
-    image = get_cctv(id)
+    image = await get_cctv(id)
     return StreamingResponse(io.BytesIO(image), media_type="image/png")
 
 
