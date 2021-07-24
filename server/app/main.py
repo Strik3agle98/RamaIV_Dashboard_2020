@@ -28,13 +28,13 @@ app.add_middleware(
 )
 
 
-@app.get("/image/{id}")
+@app.get("api/image/{id}")
 async def get_image(id: int):
     image = await get_cctv(id)
     return StreamingResponse(io.BytesIO(image), media_type="image/png")
 
 
-@app.get("/junction/{id}", response_description="Get individual junction with all detail")
+@app.get("api/junction/{id}", response_description="Get individual junction with all detail")
 async def get_junction(id: str):
     junction = await junction_collection.find_one({"_id": ObjectId(id)})
     if junction:
@@ -43,7 +43,7 @@ async def get_junction(id: str):
     return JSONResponse(status_code=status.HTTP_404_NOT_FOUND)
     # return get_const_junction(id)
 
-@app.get("/junction", response_description="Get every junction")
+@app.get("api/junction", response_description="Get every junction")
 async def get_all_junction():
     junctions = list()
     async for junction in junction_collection.find():
@@ -51,7 +51,7 @@ async def get_all_junction():
     return junctions
     # return get_junction(id)
 
-@app.post("/junction", response_description="Add new junction", response_model=JunctionModel)
+@app.post("api/junction", response_description="Add new junction", response_model=JunctionModel)
 async def create_junction(junction: JunctionModel = Body(...)):
     # created_junction = create_junction(junction)
     # print(created_junction)
@@ -62,7 +62,7 @@ async def create_junction(junction: JunctionModel = Body(...)):
     created_junction = jsonable_encoder(created_junction)
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=created_junction)
 
-@app.post("/junction/{id}", response_description="Update junction")
+@app.post("api/junction/{id}", response_description="Update junction")
 async def update_junction(id: str, junction_update: JunctionModel = Body(...)):
     if not junction_update:
         return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST)
